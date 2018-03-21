@@ -13,10 +13,11 @@
         <input v-model="data.label">: <input v-model="data.data">
       </li>
     </ul>
-
+    
     <stacked-bar :width="900" :height="300" :chartData="chartData" :options="options" />
     <button @click="load">load</button>
     <button @click="update">update</button>
+    <button @click="reload">reload</button>
   </div>
 </template>
 
@@ -50,6 +51,22 @@ export default {
     }
   },
   methods: {
+    reload: function () {
+      const dts = this.chartData.datasets.map(data => {
+        let d = Array.isArray(data.data) ? data.data : [Number(data.data)]
+        return {
+          label: data.label,
+          data: d,
+          borderColor: data.borderColor,
+          backgroundColor: data.backgroundColor,
+          stack: data.stack
+        }
+      })
+      let updObj = Object.assign({}, this.chartData)
+      updObj.datasets = dts
+      console.dir(updObj)
+      this.chartData = updObj
+    },
     update: function () {
       console.log('update')
       this.chartData = {
@@ -85,6 +102,7 @@ export default {
           }
         ]
       }
+      console.dir(this.chartData)
     },
     load: function () {
       console.log('load')
