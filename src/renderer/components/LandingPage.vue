@@ -10,12 +10,13 @@
 
     <ul id="example-1">
       <li v-for="data in chartData.datasets" :key="data.label">
-        {{ data.label }}
+        <input v-model="data.label">: <input v-model="data.data">
       </li>
     </ul>
 
     <stacked-bar :width="900" :height="300" :chartData="chartData" :options="options" />
     <button @click="load">load</button>
+    <button @click="update">update</button>
   </div>
 </template>
 
@@ -49,63 +50,71 @@ export default {
     }
   },
   methods: {
-    load: function () {
-      console.log('load')
+    update: function () {
+      console.log('update')
       this.chartData = {
-        labels: ['B/S', 'P/L'],
+        labels: ['B/S'],
         datasets: [
           {
             label: '固定資産',
-            data: [ 27, null ],
+            data: [ 1 ],
             borderColor: '#333',
             backgroundColor: '#333',
             stack: 'stack0'
           },
           {
             label: '流動資産',
-            data: [ 10, null ],
+            data: [ 210 ],
             borderColor: '#666',
             backgroundColor: '#666',
             stack: 'stack0'
           },
           {
             label: '純資産',
-            data: [ 17, null ],
+            data: [ 17 ],
             borderColor: '#333',
             backgroundColor: '#333',
             stack: 'stack1'
           },
           {
             label: '負債',
-            data: [ 20, null ],
+            data: [ 20 ],
             borderColor: '#666',
             backgroundColor: '#666',
             stack: 'stack1'
-          },
+          }
+        ]
+      }
+    },
+    load: function () {
+      console.log('load')
+      this.chartData = {
+        labels: ['B/S'],
+        datasets: [
           {
-            label: '営業利益',
-            data: [ null, 10 ],
-            borderColor: '#666',
-            backgroundColor: '#666',
-            stack: 'stack0'
-          },
-          {
-            label: '販管費',
-            data: [ null, 10 ],
-            borderColor: '#444',
-            backgroundColor: '#444',
-            stack: 'stack0'
-          },
-          {
-            label: '売上原価',
-            data: [ null, 80 ],
+            label: '固定資産',
+            data: [ 27 ],
             borderColor: '#333',
             backgroundColor: '#333',
             stack: 'stack0'
           },
           {
-            label: '売上',
-            data: [ null, 100 ],
+            label: '流動資産',
+            data: [ 10 ],
+            borderColor: '#666',
+            backgroundColor: '#666',
+            stack: 'stack0'
+          },
+          {
+            label: '純資産',
+            data: [ 17 ],
+            borderColor: '#333',
+            backgroundColor: '#333',
+            stack: 'stack1'
+          },
+          {
+            label: '負債',
+            data: [ 20 ],
             borderColor: '#666',
             backgroundColor: '#666',
             stack: 'stack1'
