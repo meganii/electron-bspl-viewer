@@ -1,17 +1,118 @@
 <template>
   <div>
-    <commit-chart :width="900" :height="300"></commit-chart>
-    <stacked-bar :width="900" :height="300"></stacked-bar>
+    <input class="input" v-model="asset" placeholder="資産名">
+    <input class="input" v-model="name" placeholder="項目名"> 
+    <input class="input" v-model="value" placeholder="金額">
+
+    <p class="name">資産名: {{ asset }}</p>
+    <p class="name">項目名: {{ name }}</p>
+    <p class="name">金額: {{ value }}</p>
+
+    <ul id="example-1">
+      <li v-for="data in chartData.datasets" :key="data.label">
+        {{ data.label }}
+      </li>
+    </ul>
+
+    <stacked-bar :width="900" :height="300" :chartData="chartData" :options="options" />
+    <button @click="load">load</button>
   </div>
 </template>
 
 <script>
 import StackedBar from './LandingPage/StackedBar'
-import CommitChart from './LandingPage/CommitChart'
 export default {
   components: {
-    CommitChart,
     StackedBar
+  },
+  data () {
+    return {
+      asset: '',
+      name: '',
+      value: '',
+      chartData: {},
+      options: {
+        responsive: false,
+        scales: {
+          xAxes: [{
+            stacked: true
+          }],
+          yAxes: [{
+            stacked: true,
+            ticks: {
+              beginAtZero: true,
+              min: 0
+            }
+          }]
+        }
+      }
+    }
+  },
+  methods: {
+    load: function () {
+      console.log('load')
+      this.chartData = {
+        labels: ['B/S', 'P/L'],
+        datasets: [
+          {
+            label: '固定資産',
+            data: [ 27, null ],
+            borderColor: '#333',
+            backgroundColor: '#333',
+            stack: 'stack0'
+          },
+          {
+            label: '流動資産',
+            data: [ 10, null ],
+            borderColor: '#666',
+            backgroundColor: '#666',
+            stack: 'stack0'
+          },
+          {
+            label: '純資産',
+            data: [ 17, null ],
+            borderColor: '#333',
+            backgroundColor: '#333',
+            stack: 'stack1'
+          },
+          {
+            label: '負債',
+            data: [ 20, null ],
+            borderColor: '#666',
+            backgroundColor: '#666',
+            stack: 'stack1'
+          },
+          {
+            label: '営業利益',
+            data: [ null, 10 ],
+            borderColor: '#666',
+            backgroundColor: '#666',
+            stack: 'stack0'
+          },
+          {
+            label: '販管費',
+            data: [ null, 10 ],
+            borderColor: '#444',
+            backgroundColor: '#444',
+            stack: 'stack0'
+          },
+          {
+            label: '売上原価',
+            data: [ null, 80 ],
+            borderColor: '#333',
+            backgroundColor: '#333',
+            stack: 'stack0'
+          },
+          {
+            label: '売上',
+            data: [ null, 100 ],
+            borderColor: '#666',
+            backgroundColor: '#666',
+            stack: 'stack1'
+          }
+        ]
+      }
+    }
   }
 }
 </script>
