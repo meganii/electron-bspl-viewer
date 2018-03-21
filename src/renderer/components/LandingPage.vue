@@ -1,14 +1,17 @@
 <template>
   <div>
     <commit-chart :width="900" :height="300"></commit-chart>
+    <stacked-bar :width="900" :height="300"></stacked-bar>
   </div>
 </template>
 
 <script>
+import StackedBar from './LandingPage/StackedBar'
 import CommitChart from './LandingPage/CommitChart'
 export default {
   components: {
-    CommitChart
+    CommitChart,
+    StackedBar
   }
 }
 </script>
